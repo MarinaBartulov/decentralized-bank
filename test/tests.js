@@ -49,7 +49,7 @@ contract("DBToken", (accounts) => {
 				await dbToken.mint(accounts[1], '1', {from: accounts[0]}).should.be.rejectedWith(EVM_REVERT) //unauthorized minter
 		  })
 		})
-
 	})
+	
 })
 	
