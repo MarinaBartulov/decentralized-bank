@@ -35,21 +35,20 @@ contract("DBToken", (accounts) => {
 			})
 
 			it('dBank should have Token minter role', async () => {
-        expect(await dbToken.minter()).to.eq(decentralizedBank.address)
-      })
-
+				expect(await dbToken.minter()).to.eq(decentralizedBank.address)
+			})
 
 		})
 
 		describe('failure', () => {
-      it('passing minter role should be rejected', async () => {
-        await dbToken.passMinterRole(accounts[1], {from: accounts[0]}).should.be.rejectedWith(EVM_REVERT)
-      })
+		      it('passing minter role should be rejected', async () => {
+			await dbToken.passMinterRole(accounts[1], {from: accounts[0]}).should.be.rejectedWith(EVM_REVERT)
+		      })
 
-      it('tokens minting should be rejected', async () => {
-        await dbToken.mint(accounts[1], '1', {from: accounts[0]}).should.be.rejectedWith(EVM_REVERT) //unauthorized minter
-      })
-    })
+		      it('tokens minting should be rejected', async () => {
+			await dbToken.mint(accounts[1], '1', {from: accounts[0]}).should.be.rejectedWith(EVM_REVERT) //unauthorized minter
+		      })
+		})
 
 	})
 })
