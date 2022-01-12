@@ -67,4 +67,40 @@ contract DecentralizedBank {
 		emit Withdraw(msg.sender, userBalance, depositTime, interest);
 
 	}
+
+	/**
+	 * collateral must be >= 0.01 ETH
+	 * user must not have an active loan
+	 * Ether collateral will be locked until user pays off the loan
+	 * user gets 50% of collateral in tokens (that is what the user borrows)
+	 */
+	function borrow() payable public {
+		require(msg.value >= 1e16, 'Error, collateral must be >= 0.01 ETH');
+		require(isBorrowed[msg.sender] == false, 'Error, loan already taken');
+
+		collateralEther[msg.sender] = collateralEther[msg.sender] + msg.value;
+		uint tokensToMint = collateralEther[msg.sender] / 2;
+		dbToken.mint(msg.sender, tokensToMint);
+		isBorrowed[msg.sender] = true;
+
+		emit Borrow(msg.sender, collateralEther[msg.sender], tokensToMint);
+
+	}
+
+	/**
+	 * user must have an active loan
+	 * tokens are transfered from user back to the contract
+	 * fee is 10% of collateral
+	 */
+	function payOff() public {
+		require(isBorrowed[msg.sender] == true, 'Error, loan not active');
+		require(dbToken.transferFrom(msg.sender, address(this), collateralEther[msg.sender]/2), "Error, can't receive tokens"); //must approve dBank first
+
+		uint fee = collateralEther[msg.sender] / 10;
+		msg.sender.transfer(collateralEther[msg.sender] - fee);
+		collateralEther[msg.sender] = 0;
+		isBorrowed[msg.sender] = false;
+
+		emit PayOff(msg.sender, fee);
+	}
 }
