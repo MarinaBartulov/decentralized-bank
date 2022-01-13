@@ -91,5 +91,67 @@ contract('decentralizedBank', ([deployer, user]) => {
 			})
 		})
 	})
+
+	describe('testing borrow...', async () => {
+		describe('success', async () => {
+			it('user should successfully borrow the tokens', async () => {
+				let value = 10**18
+				const receipt = await decentralizedBank.borrow({value: value, from: user})
+				expect(Number(await dbToken.balanceOf(user))).to.eq(value/2)
+				expect(Number(await decentralizedBank.collateralEther(user))).to.eq(value)
+				expect(await decentralizedBank.isBorrowed(user)).to.eq(true)
+				expect(receipt.logs[0].event).to.be.eq('Borrow')
+				expect(receipt.logs[0].args.user).to.be.eq(user)
+				expect(Number(receipt.logs[0].args.collateralEtherAmount)).to.eq(value)
+				expect(Number(receipt.logs[0].args.borrowedTokenAmount)).to.eq(value/2)
+			})
+		})
+
+		describe('failure', async () => {
+			it('borrow should be rejected because of insufficient amount', async () => {
+				let value = 10**15
+				await decentralizedBank.borrow({value: value, from: user}).should.be.rejectedWith(EVM_REVERT)
+			})
+
+			it('borrow should be rejected because user already borrowed', async () => {
+				let value = 10**18
+				await decentralizedBank.borrow({value: value, from: user})
+				await decentralizedBank.borrow({value: value, from: user}).should.be.rejectedWith(EVM_REVERT)
+
+			})
+		})
+	})
+
+	describe('testing pay off...', async () => {
+		describe('success', async () => {
+			it('user should successfully pay off the loan...', async () => {
+				let value = 10**18
+				let balance = await web3.eth.getBalance(user)
+				await decentralizedBank.borrow({value: value, from: user})
+				await dbToken.approve(decentralizedBank.address, BigInt(value/2), {from: user})
+				await decentralizedBank.payOff({from: user})
+				expect(Number(await dbToken.balanceOf(user))).to.eq(0)
+				expect(Number(await decentralizedBank.collateralEther(user))).to.eq(0)
+				expect(await decentralizedBank.isBorrowed(user)).to.eq(false)
+			    let balanceAfter = await web3.eth.getBalance(user)
+				expect(Number(balance)).to.be.above(Number(balanceAfter))
+			})
+		})
+
+		describe('failure', async () => {
+			it('payOff should be rejected because user does not have an active loan', async () => {
+				await decentralizedBank.payOff({from: user}).should.be.rejectedWith(EVM_REVERT)
+			})
+
+			it('borrow should be rejected because transfer was not approved for dBank', async () => {
+		
+				let value = 10**18
+				let balance = await web3.eth.getBalance(user)
+				await decentralizedBank.borrow({value: value, from: user})
+				await decentralizedBank.payOff({from: user}).should.be.rejectedWith(EVM_REVERT)
+
+			})
+		})
+	})
 })
 
