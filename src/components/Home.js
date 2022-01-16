@@ -3,26 +3,45 @@ import logoImg from '../assets/logoImg.png';
 import './Home.css';
 import { Tabs, Tab } from 'react-bootstrap'
 import CustomNavbar from './CustomNavbar';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-
-import Web3 from 'web3';
+import DBToken from '../abis/DBToken.json';
+import DecentralizedBank from '../abis/DecentralizedBank.json';
 
 function Home(props) {
-  
+
+  const [balance, setBalance] = useState(0);
+  const [dbToken, setDbToken] = useState(null);
+  const [decentralizedBank, setDecentralizedBank] = useState(null);
+  const [decentralizedBankAddress, setDecentralizedBankAddress] = useState(null);
   const [dbTokenSymbol, setDbTokenSymbol] = useState("DBT");
 
   const [depositAmount, setDepositAmount] = useState(0);
   const [earnedInterest, setEarnedInterest] = useState(0);
   const [borrowAmount, setBorrowAmount] = useState(0);
+  const [depositedAmount, setDepositedAmount] = useState(0);
 
   useEffect(() => {
-    loadBlockchainData();
-  },[])
+    if(props.web3 !== 'undefined' && props.account !== '' && props.netId !== ''){
+      loadBlockchainData();
+    }
+  },[props.web3, props.account, props.netId])
 
   const loadBlockchainData = async () => {
+      const balance = await props.web3.eth.getBalance(props.account);
+      setBalance(balance);
 
       try{
-        //load smart contracts
+        const dbToken = new props.web3.eth.Contract(DBToken.abi, DBToken.networks[props.netId].address);
+        const decentralizedBank = new props.web3.eth.Contract(DecentralizedBank.abi, DecentralizedBank.networks[props.netId].address)
+        const decentralizedBankAddress = DecentralizedBank.networks[props.netId].address;
+        const earnedInterest = await dbToken.methods.balanceOf(props.account).call()
+        const dbTokenSymbol = await dbToken.methods.symbol().call();
+        const depositedAmount = await decentralizedBank.methods.etherBalanceOf(props.account).call()
+        setDbToken(dbToken);
+        setDecentralizedBank(decentralizedBank);
+        setDecentralizedBankAddress(decentralizedBankAddress);
+        setDbTokenSymbol(dbTokenSymbol);
+        setEarnedInterest(earnedInterest);
+        setDepositedAmount(depositedAmount);
 
       } catch(e){
         console.log('Error',e)
@@ -87,7 +106,7 @@ function Home(props) {
           <Tab eventKey="withdraw" title="Withdraw" className="tab">
           <br></br>
             Do you want to withdraw + take interest?<br></br>
-            Deposited amount: 0.01 ETH <br></br>
+            Deposited amount: {depositedAmount} ETH <br></br>
             Earned Interest: {earnedInterest} {dbTokenSymbol}
             <br></br>
             <br></br>

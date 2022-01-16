@@ -14,11 +14,12 @@ function BuyDAI(props) {
   }
 
   const handleAgainEther = async () => {
-
+ 
   }
 
 return (
   <div className="main-div">
+  <h3>Buy DAI</h3>
     <div className="card mb-4" >
        <div className="card-body card-DAI">
           <form className="mb-3" onSubmit={handleEnterEther}>

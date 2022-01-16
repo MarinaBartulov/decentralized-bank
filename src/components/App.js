@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react';
-import logoImg from '../assets/logoImg.png';
 import './App.css';
-import { Tabs, Tab } from 'react-bootstrap'
 import CustomNavbar from './CustomNavbar';
 import BuyDAI from './BuyDAI';
 import Home from './Home';
@@ -27,6 +25,7 @@ function App() {
       if(typeof accounts[0] !== 'undefined'){
         setAccount(accounts[0])
         setWeb3(web3)
+        setNetId(netId)
       }else{
         window.alert('Please login with MetaMask')
       }

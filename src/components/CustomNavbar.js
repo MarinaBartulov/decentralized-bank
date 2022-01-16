@@ -18,7 +18,7 @@ function CustomNavbar(props) {
           Decentralized Bank
           </Navbar.Brand>
           <Navbar.Collapse className="justify-content-start" id="basic-navbar-nav">
-            <Nav ActiveKey="/home" className="justify-content-end">
+            <Nav activeKey="/home" className="justify-content-end">
               <Nav.Link href="/home">Home</Nav.Link>
               <Nav.Link href="/buyDAI">Buy DAI</Nav.Link>
             </Nav>
