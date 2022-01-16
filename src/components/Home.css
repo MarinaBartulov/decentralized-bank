@@ -1,0 +1,26 @@
+.div-tabs{
+  width: 35%;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 3rem
+}
+
+.tabs{
+  background-color: RGB(33, 36, 41);
+}
+
+.tab{
+  background-color: RGB(26, 27, 31);
+  border-radius: 1em;
+}
+
+.input {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.tab-btn {
+  background-color: RGB(40, 64, 143) !important;
+  border-radius: 1em !important;
+}

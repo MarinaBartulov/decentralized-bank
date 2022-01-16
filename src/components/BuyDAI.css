@@ -1,0 +1,16 @@
+.main-div {
+  width: 35%;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 3rem;
+}
+
+.card-DAI {
+	background-color: RGB(26, 27, 31);
+	border-radius: 1em;
+}
+
+.dai-btn {
+  background-color: RGB(40, 64, 143) !important;
+  border-radius: 1em !important;
+}
