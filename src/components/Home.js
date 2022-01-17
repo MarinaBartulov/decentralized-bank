@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react';
 import logoImg from '../assets/logoImg.png';
 import './Home.css';
 import { Tabs, Tab } from 'react-bootstrap'
-import CustomNavbar from './CustomNavbar';
 import DBToken from '../abis/DBToken.json';
 import DecentralizedBank from '../abis/DecentralizedBank.json';
 
 function Home(props) {
 
+  const [account, setAccount] = useState('');
   const [balance, setBalance] = useState(0);
   const [dbToken, setDbToken] = useState(null);
   const [decentralizedBank, setDecentralizedBank] = useState(null);
@@ -15,9 +15,13 @@ function Home(props) {
   const [dbTokenSymbol, setDbTokenSymbol] = useState("DBT");
 
   const [depositAmount, setDepositAmount] = useState(0);
-  const [earnedInterest, setEarnedInterest] = useState(0);
   const [borrowAmount, setBorrowAmount] = useState(0);
+  const [earnedInterest, setEarnedInterest] = useState(0);
   const [depositedAmount, setDepositedAmount] = useState(0);
+  const [collateralEther, setCollateralEther] = useState(0);
+  const [borrowedTokens, setBorrowedTokens] = useState(0);
+
+  const [key, setKey] = useState('deposit');
 
   useEffect(() => {
     if(props.web3 !== 'undefined' && props.account !== '' && props.netId !== ''){
@@ -25,23 +29,30 @@ function Home(props) {
     }
   },[props.web3, props.account, props.netId])
 
+  useEffect(() => {
+    if(key === 'withdraw'){
+      updateWithdrawTab();
+    }else if(key === 'earnedInterest'){
+      updateEarnedInterestTab();
+    }else if(key === 'payOff'){
+      updatePayOffTab();
+    }
+  },[key])
+
   const loadBlockchainData = async () => {
       const balance = await props.web3.eth.getBalance(props.account);
       setBalance(balance);
+      setAccount(props.account)
 
       try{
         const dbToken = new props.web3.eth.Contract(DBToken.abi, DBToken.networks[props.netId].address);
         const decentralizedBank = new props.web3.eth.Contract(DecentralizedBank.abi, DecentralizedBank.networks[props.netId].address)
         const decentralizedBankAddress = DecentralizedBank.networks[props.netId].address;
-        const earnedInterest = await dbToken.methods.balanceOf(props.account).call()
         const dbTokenSymbol = await dbToken.methods.symbol().call();
-        const depositedAmount = await decentralizedBank.methods.etherBalanceOf(props.account).call()
         setDbToken(dbToken);
         setDecentralizedBank(decentralizedBank);
         setDecentralizedBankAddress(decentralizedBankAddress);
         setDbTokenSymbol(dbTokenSymbol);
-        setEarnedInterest(earnedInterest);
-        setDepositedAmount(depositedAmount);
 
       } catch(e){
         console.log('Error',e)
@@ -51,31 +62,76 @@ function Home(props) {
   
   const handleDeposit = async (e) => {
     e.preventDefault();
-    console.log("Depositing...")
+    let amount = depositAmount * 10**18
+    if(decentralizedBank !== 'undefined'){
+      try{
+        await decentralizedBank.methods.deposit().send({value: amount.toString(), from: account})
+      }catch(e){
+        console.log('Error, deposit: ', e)
+      }
+    }
   }
 
   const handleWithdraw = async (e) => {
     e.preventDefault();
-    console.log("Withdrawing...")
+    if(decentralizedBank !== 'undefined'){
+      try{
+        await decentralizedBank.methods.withdraw().send({from: account})
+      }catch(e){
+        console.log('Error, withdraw: ', e)
+      }
+    }
   }
 
   const handleBorrow = async (e) => {
     e.preventDefault();
-    console.log("Borrowing...")
-    let amount = borrowAmount
-    amount = amount * 10**18
+    let amount = borrowAmount * 10**18
+    try{
+      await decentralizedBank.methods.borrow().send({value: amount.toString(), from: account})
+    }catch(e){
+      console.log('Error, borrow: ', e)
+    }
   }
 
   const handlePayOff = async (e) => {
     e.preventDefault();
-    console.log("Paying Off...")
+    if(decentralizedBank !== 'undefined'){
+      try{
+        const collateralEther = await decentralizedBank.methods.collateralEther(account).call({from: account})
+        const tokenBorrowed = collateralEther/2
+        await dbToken.methods.approve(decentralizedBankAddress, tokenBorrowed.toString()).send({from: account})
+        await decentralizedBank.methods.payOff().send({from: account})
+      }catch(e){
+        console.log('Error, pay off: ', e)
+      }
+    }
+  }
+
+  const updateWithdrawTab = async () => {
+    console.log("Updating withdraw tab")
+    const depositedAmount = await decentralizedBank.methods.etherBalanceOf(props.account).call()
+    setDepositedAmount(props.web3.utils.fromWei(depositedAmount));
+  }
+
+  const updateEarnedInterestTab = async () => {
+    console.log("Updating earnedInterest tab")
+    const earnedInterest = await decentralizedBank.methods.earnedTokens(props.account).call()
+    setEarnedInterest(props.web3.utils.fromWei(earnedInterest));
+  }
+
+  const updatePayOffTab = async () => {
+    console.log("Updating payOff tab")
+    const collateralEther = await decentralizedBank.methods.collateralEther(props.account).call()
+    setCollateralEther(props.web3.utils.fromWei(collateralEther));
+    const borrowedTokens = await decentralizedBank.methods.borrowedTokens(props.account).call()
+    setBorrowedTokens(props.web3.utils.fromWei(borrowedTokens));
   }
 
 
   return (
     <div>
       <div className="div-tabs">
-        <Tabs fill defaultActiveKey="deposit" id="uncontrolled-tab-example" className="tabs">
+        <Tabs fill activeKey={key} onSelect={(k) => setKey(k)} id="uncontrolled-tab-example" className="tabs">
           <Tab eventKey="deposit" title="Deposit" className="tab">
           <div>
             <br></br>
@@ -107,6 +163,14 @@ function Home(props) {
           <br></br>
             Do you want to withdraw + take interest?<br></br>
             Deposited amount: {depositedAmount} ETH <br></br>
+            <br></br>
+            <br></br>
+          <div>
+            <button type="submit" className="btn btn-primary mt-2 mb-2" onClick={handleWithdraw}>WITHDRAW</button>
+          </div>
+          </Tab>
+          <Tab eventKey="earnedInterest" title="Earned Interest" className="tab">
+          <br></br>
             Earned Interest: {earnedInterest} {dbTokenSymbol}
             <br></br>
             <br></br>
@@ -134,7 +198,7 @@ function Home(props) {
                     type="number"
                     onChange={event => setBorrowAmount(event.target.value)}
                     className="form-control form-control-md"
-                    placeholder="Borrow Amount"
+                    placeholder="Collateral Amount"
                     required />
                 </div>
                 <button type="submit" className="btn btn-primary mt-2 mb-2">BORROW</button>
@@ -147,6 +211,9 @@ function Home(props) {
               Do you want to payoff the loan?
               <br></br>
               (You'll receive your collateral - fee)
+              <br></br>
+              Your collateral: {collateralEther} ETH<br></br>
+              Borrowed tokens: {borrowedTokens} {dbTokenSymbol}
               <br></br>
               <br></br>
               <button type="submit" className="btn btn-primary mt-2 mb-2" onClick={handlePayOff}>PAYOFF</button>

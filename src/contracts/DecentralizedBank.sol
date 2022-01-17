@@ -13,6 +13,9 @@ contract DecentralizedBank {
 	mapping(address => uint) public collateralEther;
 	mapping(address => bool) public isBorrowed;
 
+	mapping(address => uint) public earnedTokens;
+	mapping(address => uint) public borrowedTokens;
+
 	event Deposit(address indexed user, uint etherAmount, uint timeStart);
 	event Withdraw(address indexed user, uint etherAmount, uint depositTime, uint interest);
 	event Borrow(address indexed user, uint collateralEtherAmount, uint borrowedTokenAmount);
@@ -59,6 +62,7 @@ contract DecentralizedBank {
 		msg.sender.transfer(userBalance);
 		// interest in tokens to user
 		dbToken.mint(msg.sender, interest);
+		earnedTokens[msg.sender] = interest;
 
 		depositStart[msg.sender] = 0;
 		etherBalanceOf[msg.sender] = 0;
@@ -81,6 +85,7 @@ contract DecentralizedBank {
 		collateralEther[msg.sender] = collateralEther[msg.sender] + msg.value;
 		uint tokensToMint = collateralEther[msg.sender] / 2;
 		dbToken.mint(msg.sender, tokensToMint);
+		borrowedTokens[msg.sender] = tokensToMint;
 		isBorrowed[msg.sender] = true;
 
 		emit Borrow(msg.sender, collateralEther[msg.sender], tokensToMint);
@@ -99,6 +104,7 @@ contract DecentralizedBank {
 		uint fee = collateralEther[msg.sender] / 10;
 		msg.sender.transfer(collateralEther[msg.sender] - fee);
 		collateralEther[msg.sender] = 0;
+		borrowedTokens[msg.sender] = 0;
 		isBorrowed[msg.sender] = false;
 
 		emit PayOff(msg.sender, fee);
