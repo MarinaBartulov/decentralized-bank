@@ -4,6 +4,7 @@ import './Home.css';
 import { Tabs, Tab } from 'react-bootstrap'
 import DBToken from '../abis/DBToken.json';
 import DecentralizedBank from '../abis/DecentralizedBank.json';
+import { toast } from 'react-toastify';
 
 function Home(props) {
 
@@ -22,6 +23,7 @@ function Home(props) {
   const [borrowedTokens, setBorrowedTokens] = useState(0);
 
   const [key, setKey] = useState('deposit');
+  const [toastMsg, setToastMsg] = useState('');
 
   useEffect(() => {
     if(props.web3 !== 'undefined' && props.account !== '' && props.netId !== ''){
@@ -39,6 +41,12 @@ function Home(props) {
     }
   },[key])
 
+  useEffect(() => {
+    if(toastMsg !== ''){
+      toast.success(toastMsg)
+    }
+  },[toastMsg])
+
   const loadBlockchainData = async () => {
       const balance = await props.web3.eth.getBalance(props.account);
       setBalance(balance);
@@ -54,6 +62,35 @@ function Home(props) {
         setDecentralizedBankAddress(decentralizedBankAddress);
         setDbTokenSymbol(dbTokenSymbol);
 
+        decentralizedBank.events.Deposit({
+          fromBlock: 'latest',
+        }, (error, event) => {
+          setToastMsg('Deposit successful!')
+          setDepositAmount(0)
+        })
+
+        decentralizedBank.events.Withdraw({
+          fromBlock: 'latest',
+        }, (error, event) => {
+          setToastMsg('Withdrawal successful!')
+          setDepositedAmount(0)
+        })
+
+        decentralizedBank.events.Borrow({
+          fromBlock: 'latest',
+        }, (error, event) => {
+          setToastMsg('Borrowing successful!')
+          setBorrowAmount(0)
+        })
+
+        decentralizedBank.events.PayOff({
+          fromBlock: 'latest',
+        }, (error, event) => {
+          setToastMsg('Payoff successful!')
+          setBorrowedTokens(0)
+          setCollateralEther(0)
+        })
+
       } catch(e){
         console.log('Error',e)
         window.alert('Contracts not deployed to the current network')
@@ -62,6 +99,7 @@ function Home(props) {
   
   const handleDeposit = async (e) => {
     e.preventDefault();
+    setToastMsg('');
     let amount = depositAmount * 10**18
     if(decentralizedBank !== 'undefined'){
       try{
@@ -74,6 +112,7 @@ function Home(props) {
 
   const handleWithdraw = async (e) => {
     e.preventDefault();
+    setToastMsg('');
     if(decentralizedBank !== 'undefined'){
       try{
         await decentralizedBank.methods.withdraw().send({from: account})
@@ -85,6 +124,7 @@ function Home(props) {
 
   const handleBorrow = async (e) => {
     e.preventDefault();
+    setToastMsg('');
     let amount = borrowAmount * 10**18
     try{
       await decentralizedBank.methods.borrow().send({value: amount.toString(), from: account})
@@ -95,6 +135,7 @@ function Home(props) {
 
   const handlePayOff = async (e) => {
     e.preventDefault();
+    setToastMsg('');
     if(decentralizedBank !== 'undefined'){
       try{
         const collateralEther = await decentralizedBank.methods.collateralEther(account).call({from: account})
@@ -108,19 +149,16 @@ function Home(props) {
   }
 
   const updateWithdrawTab = async () => {
-    console.log("Updating withdraw tab")
     const depositedAmount = await decentralizedBank.methods.etherBalanceOf(props.account).call()
     setDepositedAmount(props.web3.utils.fromWei(depositedAmount));
   }
 
   const updateEarnedInterestTab = async () => {
-    console.log("Updating earnedInterest tab")
     const earnedInterest = await decentralizedBank.methods.earnedTokens(props.account).call()
     setEarnedInterest(props.web3.utils.fromWei(earnedInterest));
   }
 
   const updatePayOffTab = async () => {
-    console.log("Updating payOff tab")
     const collateralEther = await decentralizedBank.methods.collateralEther(props.account).call()
     setCollateralEther(props.web3.utils.fromWei(collateralEther));
     const borrowedTokens = await decentralizedBank.methods.borrowedTokens(props.account).call()
@@ -174,9 +212,6 @@ function Home(props) {
             Earned Interest: {earnedInterest} {dbTokenSymbol}
             <br></br>
             <br></br>
-          <div>
-            <button type="submit" className="btn btn-primary mt-2 mb-2" onClick={handleWithdraw}>WITHDRAW</button>
-          </div>
           </Tab>
           <Tab eventKey="borrow" title="Borrow" className="tab">
             <div>
@@ -196,6 +231,7 @@ function Home(props) {
                     id="borrowAmount"
                     step="0.01"
                     type="number"
+                    value={borrowAmount}
                     onChange={event => setBorrowAmount(event.target.value)}
                     className="form-control form-control-md"
                     placeholder="Collateral Amount"

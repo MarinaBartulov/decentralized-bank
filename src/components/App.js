@@ -5,6 +5,8 @@ import BuyDAI from './BuyDAI';
 import Home from './Home';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Web3 from 'web3';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
 
@@ -38,6 +40,7 @@ function App() {
     <Router>
       <div className="App">
         <CustomNavbar account={account}></CustomNavbar>
+        <ToastContainer className="mt-5" position="top-right" theme="colored" />
         <Routes>
           <Route path="/" element={<Home account={account} web3={web3} netId={netId} />} />
           <Route path="/home" element={<Home account={account} web3={web3} netId={netId} />} />

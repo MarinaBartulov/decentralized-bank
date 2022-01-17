@@ -74,6 +74,8 @@ contract('decentralizedBank', ([deployer, user]) => {
 				expect(balance%interestPerSecond).to.eq(0)
 				// time synchronization problem makes us check the 1-3s range for 2s deposit time
 				expect(balance).to.be.below(interestPerSecond*4)
+				expect(Number(await decentralizedBank.earnedTokens(user))).to.be.below(interestPerSecond*4)
+				
 			})
 
 			it('depositer data should be reseted', async () => {
@@ -98,6 +100,7 @@ contract('decentralizedBank', ([deployer, user]) => {
 				let value = 10**18
 				const receipt = await decentralizedBank.borrow({value: value, from: user})
 				expect(Number(await dbToken.balanceOf(user))).to.eq(value/2)
+				expect(Number(await decentralizedBank.borrowedTokens(user))).to.eq(value/2)
 				expect(Number(await decentralizedBank.collateralEther(user))).to.eq(value)
 				expect(await decentralizedBank.isBorrowed(user)).to.eq(true)
 				expect(receipt.logs[0].event).to.be.eq('Borrow')
@@ -135,6 +138,7 @@ contract('decentralizedBank', ([deployer, user]) => {
 				expect(await decentralizedBank.isBorrowed(user)).to.eq(false)
 			    let balanceAfter = await web3.eth.getBalance(user)
 				expect(Number(balance)).to.be.above(Number(balanceAfter))
+				expect(Number(await decentralizedBank.borrowedTokens(user))).to.eq(0)
 			})
 		})
 
