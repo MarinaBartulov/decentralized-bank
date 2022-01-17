@@ -6,6 +6,7 @@ contract DBToken {
 	uint256 public totalSupply; 
 	string public name = "Decentralized Bank Token";
 	string public symbol = "DBT";
+	uint8 public decimals = 18;
 	string public standard = "Decentralized Bank Token v1.0"; 
 	address public minter;
 

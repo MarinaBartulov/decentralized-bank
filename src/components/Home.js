@@ -204,7 +204,7 @@ function Home(props) {
             <br></br>
             <br></br>
           <div>
-            <button type="submit" className="btn btn-primary mt-2 mb-2" onClick={handleWithdraw}>WITHDRAW</button>
+            <button type="submit" className="btn btn-primary mt-2 mb-2 tab-btn" onClick={handleWithdraw}>WITHDRAW</button>
           </div>
           </Tab>
           <Tab eventKey="earnedInterest" title="Earned Interest" className="tab">
@@ -237,7 +237,7 @@ function Home(props) {
                     placeholder="Collateral Amount"
                     required />
                 </div>
-                <button type="submit" className="btn btn-primary mt-2 mb-2">BORROW</button>
+                <button type="submit" className="btn btn-primary mt-2 mb-2 tab-btn">BORROW</button>
               </form>
             </div>
           </Tab>
@@ -252,7 +252,7 @@ function Home(props) {
               Borrowed tokens: {borrowedTokens} {dbTokenSymbol}
               <br></br>
               <br></br>
-              <button type="submit" className="btn btn-primary mt-2 mb-2" onClick={handlePayOff}>PAYOFF</button>
+              <button type="submit" className="btn btn-primary mt-2 mb-2 tab-btn" onClick={handlePayOff}>PAYOFF</button>
             </div>
           </Tab>
         </Tabs>
