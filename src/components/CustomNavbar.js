@@ -20,7 +20,7 @@ function CustomNavbar(props) {
           <Navbar.Collapse className="justify-content-start" id="basic-navbar-nav">
             <Nav activeKey="/home" className="justify-content-end">
               <Nav.Link href="/home">Home</Nav.Link>
-              <Nav.Link href="/buyDAI">Buy DAI</Nav.Link>
+              <Nav.Link href="/transactions">Transactions</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         <Navbar.Collapse className="justify-content-end" id="basic-navbar-nav">

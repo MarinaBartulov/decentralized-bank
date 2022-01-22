@@ -16,10 +16,10 @@ contract DecentralizedBank {
 	mapping(address => uint) public earnedTokens;
 	mapping(address => uint) public borrowedTokens;
 
-	event Deposit(address indexed user, uint etherAmount, uint timeStart);
-	event Withdraw(address indexed user, uint etherAmount, uint depositTime, uint interest);
-	event Borrow(address indexed user, uint collateralEtherAmount, uint borrowedTokenAmount);
-	event PayOff(address indexed user, uint fee);
+	event Deposit(address indexed user, uint etherAmount, uint timeStart, uint timestamp);
+	event Withdraw(address indexed user, uint etherAmount, uint depositTime, uint interest,  uint timestamp);
+	event Borrow(address indexed user, uint collateralEtherAmount, uint borrowedTokenAmount, uint timestamp);
+	event PayOff(address indexed user, uint fee, uint timestamp);
 
 	// argument: deployed token contract
 	constructor(DBToken _dbToken) {
@@ -37,7 +37,7 @@ contract DecentralizedBank {
 		etherBalanceOf[msg.sender] = etherBalanceOf[msg.sender] + msg.value;
 		depositStart[msg.sender] = depositStart[msg.sender] + block.timestamp;
 		isDeposited[msg.sender] = true;
-		emit Deposit(msg.sender, msg.value, block.timestamp);
+		emit Deposit(msg.sender, msg.value, block.timestamp, block.timestamp);
 	}
 
 	/**
@@ -62,13 +62,13 @@ contract DecentralizedBank {
 		msg.sender.transfer(userBalance);
 		// interest in tokens to user
 		dbToken.mint(msg.sender, interest);
-		earnedTokens[msg.sender] = interest;
+		earnedTokens[msg.sender] += interest;
 
 		depositStart[msg.sender] = 0;
 		etherBalanceOf[msg.sender] = 0;
 		isDeposited[msg.sender] = false;
 
-		emit Withdraw(msg.sender, userBalance, depositTime, interest);
+		emit Withdraw(msg.sender, userBalance, depositTime, interest, block.timestamp);
 
 	}
 
@@ -88,7 +88,7 @@ contract DecentralizedBank {
 		borrowedTokens[msg.sender] = tokensToMint;
 		isBorrowed[msg.sender] = true;
 
-		emit Borrow(msg.sender, collateralEther[msg.sender], tokensToMint);
+		emit Borrow(msg.sender, collateralEther[msg.sender], tokensToMint, block.timestamp);
 
 	}
 
@@ -107,6 +107,6 @@ contract DecentralizedBank {
 		borrowedTokens[msg.sender] = 0;
 		isBorrowed[msg.sender] = false;
 
-		emit PayOff(msg.sender, fee);
+		emit PayOff(msg.sender, fee, block.timestamp);
 	}
 }

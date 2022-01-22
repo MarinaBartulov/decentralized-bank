@@ -5,12 +5,12 @@
   margin-top: 1rem;
 }
 
-.card-DAI {
+.card-transactions {
 	background-color: RGB(26, 27, 31);
 	border-radius: 1em;
+  color: white;
 }
 
-.dai-btn {
-  background-color: RGB(40, 64, 143) !important;
-  border-radius: 1em !important;
+.table-transactions{
+  color: white !important;
 }

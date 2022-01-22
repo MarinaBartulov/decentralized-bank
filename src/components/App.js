@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import './App.css';
 import CustomNavbar from './CustomNavbar';
-import BuyDAI from './BuyDAI';
+import Transactions from './Transactions';
 import Home from './Home';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Web3 from 'web3';
@@ -44,7 +44,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home account={account} web3={web3} netId={netId} />} />
           <Route path="/home" element={<Home account={account} web3={web3} netId={netId} />} />
-          <Route path="/buyDAI" element={<BuyDAI web3={web3} netId={netId} />} />
+          <Route path="/transactions" element={<Transactions account={account} web3={web3} netId={netId} />} />
         </Routes>  
       </div>
     </Router>
