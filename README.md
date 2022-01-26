@@ -7,7 +7,7 @@
 ## Technologies
 - EVM, Solidity, Truffle Framework, Ganache, Chai, Mocha
 - React, web3.js
-- Rinkeby Test Network, Gethm IPFS
+- Rinkeby Test Network, Geth, IPFS
 
 ## How to use it?
 - Create an account on Rinkeby Test Network
