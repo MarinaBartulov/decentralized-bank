@@ -3,7 +3,7 @@ import './App.css';
 import CustomNavbar from './CustomNavbar';
 import Transactions from './Transactions';
 import Home from './Home';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import Web3 from 'web3';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

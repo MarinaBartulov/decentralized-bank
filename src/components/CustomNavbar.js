@@ -2,12 +2,13 @@ import logo from '../assets/logo.png';
 import './CustomNavbar.css';
 import { Navbar, Nav } from 'react-bootstrap'
 import Identicon from 'react-identicons';
+import { Link } from 'react-router-dom';
 
 function CustomNavbar(props) {
 
 	return(
 		<Navbar bg="dark" variant="dark">
-          <Navbar.Brand href="/home" className="navbar-brand">
+          <Navbar.Brand href="#/home" className="navbar-brand">
             <img
               alt=""
               src={logo}
@@ -19,8 +20,8 @@ function CustomNavbar(props) {
           </Navbar.Brand>
           <Navbar.Collapse className="justify-content-start" id="basic-navbar-nav">
             <Nav activeKey="/home" className="justify-content-end">
-              <Nav.Link href="/home">Home</Nav.Link>
-              <Nav.Link href="/transactions">Transactions</Nav.Link>
+              <Link className="custom-link" to="/home">Home</Link>
+              <Link className="custom-link" to="/transactions">Transactions</Link>
             </Nav>
           </Navbar.Collapse>
         <Navbar.Collapse className="justify-content-end" id="basic-navbar-nav">

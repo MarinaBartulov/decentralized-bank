@@ -5,3 +5,9 @@
 .identicon {
   margin-right:  0.5em;
 }
+
+.custom-link {
+  color: white !important;
+  margin-right: 0.5em;
+  text-decoration: none;
+}
