@@ -12,8 +12,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [],
@@ -26,8 +25,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -57,15 +55,15 @@
     "absolutePath": "project:/src/contracts/Migrations.sol",
     "exportedSymbols": {
       "Migrations": [
-        716
+        720
       ]
     },
-    "id": 717,
+    "id": 721,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 685,
+        "id": 689,
         "literals": [
           "solidity",
           ">=",
@@ -84,9 +82,9 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 716,
+        "id": 720,
         "linearizedBaseContracts": [
-          716
+          720
         ],
         "name": "Migrations",
         "nodeType": "ContractDefinition",
@@ -94,11 +92,11 @@
           {
             "constant": false,
             "functionSelector": "8da5cb5b",
-            "id": 689,
+            "id": 693,
             "mutability": "mutable",
             "name": "owner",
             "nodeType": "VariableDeclaration",
-            "scope": 716,
+            "scope": 720,
             "src": "90:33:2",
             "stateVariable": true,
             "storageLocation": "default",
@@ -107,7 +105,7 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 686,
+              "id": 690,
               "name": "address",
               "nodeType": "ElementaryTypeName",
               "src": "90:7:2",
@@ -119,7 +117,7 @@
             },
             "value": {
               "expression": {
-                "id": 687,
+                "id": 691,
                 "name": "msg",
                 "nodeType": "Identifier",
                 "overloadedDeclarations": [],
@@ -130,7 +128,7 @@
                   "typeString": "msg"
                 }
               },
-              "id": 688,
+              "id": 692,
               "isConstant": false,
               "isLValue": false,
               "isPure": false,
@@ -148,11 +146,11 @@
           {
             "constant": false,
             "functionSelector": "445df0ac",
-            "id": 691,
+            "id": 695,
             "mutability": "mutable",
             "name": "last_completed_migration",
             "nodeType": "VariableDeclaration",
-            "scope": 716,
+            "scope": 720,
             "src": "127:36:2",
             "stateVariable": true,
             "storageLocation": "default",
@@ -161,7 +159,7 @@
               "typeString": "uint256"
             },
             "typeName": {
-              "id": 690,
+              "id": 694,
               "name": "uint",
               "nodeType": "ElementaryTypeName",
               "src": "127:4:2",
@@ -174,7 +172,7 @@
           },
           {
             "body": {
-              "id": 702,
+              "id": 706,
               "nodeType": "Block",
               "src": "190:119:2",
               "statements": [
@@ -186,14 +184,14 @@
                           "typeIdentifier": "t_address",
                           "typeString": "address"
                         },
-                        "id": 697,
+                        "id": 701,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
                         "lValueRequested": false,
                         "leftExpression": {
                           "expression": {
-                            "id": 694,
+                            "id": 698,
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
@@ -204,7 +202,7 @@
                               "typeString": "msg"
                             }
                           },
-                          "id": 695,
+                          "id": 699,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -220,11 +218,11 @@
                         "nodeType": "BinaryOperation",
                         "operator": "==",
                         "rightExpression": {
-                          "id": 696,
+                          "id": 700,
                           "name": "owner",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 689,
+                          "referencedDeclaration": 693,
                           "src": "225:5:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
@@ -239,7 +237,7 @@
                       },
                       {
                         "hexValue": "546869732066756e6374696f6e206973207265737472696374656420746f2074686520636f6e74726163742773206f776e6572",
-                        "id": 698,
+                        "id": 702,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -265,7 +263,7 @@
                           "typeString": "literal_string \"This function is restricted to the contract's owner\""
                         }
                       ],
-                      "id": 693,
+                      "id": 697,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
@@ -279,7 +277,7 @@
                         "typeString": "function (bool,string memory) pure"
                       }
                     },
-                    "id": 699,
+                    "id": 703,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -294,22 +292,22 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 700,
+                  "id": 704,
                   "nodeType": "ExpressionStatement",
                   "src": "196:101:2"
                 },
                 {
-                  "id": 701,
+                  "id": 705,
                   "nodeType": "PlaceholderStatement",
                   "src": "303:1:2"
                 }
               ]
             },
-            "id": 703,
+            "id": 707,
             "name": "restricted",
             "nodeType": "ModifierDefinition",
             "parameters": {
-              "id": 692,
+              "id": 696,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "187:2:2"
@@ -320,23 +318,23 @@
           },
           {
             "body": {
-              "id": 714,
+              "id": 718,
               "nodeType": "Block",
               "src": "369:47:2",
               "statements": [
                 {
                   "expression": {
-                    "id": 712,
+                    "id": 716,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
-                      "id": 710,
+                      "id": 714,
                       "name": "last_completed_migration",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 691,
+                      "referencedDeclaration": 695,
                       "src": "375:24:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
@@ -346,11 +344,11 @@
                     "nodeType": "Assignment",
                     "operator": "=",
                     "rightHandSide": {
-                      "id": 711,
+                      "id": 715,
                       "name": "completed",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 705,
+                      "referencedDeclaration": 709,
                       "src": "402:9:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
@@ -363,25 +361,25 @@
                       "typeString": "uint256"
                     }
                   },
-                  "id": 713,
+                  "id": 717,
                   "nodeType": "ExpressionStatement",
                   "src": "375:36:2"
                 }
               ]
             },
             "functionSelector": "fdacd576",
-            "id": 715,
+            "id": 719,
             "implemented": true,
             "kind": "function",
             "modifiers": [
               {
-                "id": 708,
+                "id": 712,
                 "modifierName": {
-                  "id": 707,
+                  "id": 711,
                   "name": "restricted",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 703,
+                  "referencedDeclaration": 707,
                   "src": "358:10:2",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -395,16 +393,16 @@
             "name": "setCompleted",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 706,
+              "id": 710,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 705,
+                  "id": 709,
                   "mutability": "mutable",
                   "name": "completed",
                   "nodeType": "VariableDeclaration",
-                  "scope": 715,
+                  "scope": 719,
                   "src": "335:14:2",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -413,7 +411,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 704,
+                    "id": 708,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
                     "src": "335:4:2",
@@ -428,19 +426,19 @@
               "src": "334:16:2"
             },
             "returnParameters": {
-              "id": 709,
+              "id": 713,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "369:0:2"
             },
-            "scope": 716,
+            "scope": 720,
             "src": "313:103:2",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "public"
           }
         ],
-        "scope": 717,
+        "scope": 721,
         "src": "66:352:2"
       }
     ],
@@ -451,7 +449,7 @@
       "absolutePath": "project:/src/contracts/Migrations.sol",
       "exportedSymbols": {
         "Migrations": [
-          716
+          720
         ]
       },
       "license": "MIT"
@@ -469,7 +467,7 @@
             ".0"
           ]
         },
-        "id": 685,
+        "id": 689,
         "name": "PragmaDirective",
         "src": "32:32:2"
       },
@@ -485,10 +483,10 @@
           "contractKind": "contract",
           "fullyImplemented": true,
           "linearizedBaseContracts": [
-            716
+            720
           ],
           "name": "Migrations",
-          "scope": 717
+          "scope": 721
         },
         "children": [
           {
@@ -497,7 +495,7 @@
               "functionSelector": "8da5cb5b",
               "mutability": "mutable",
               "name": "owner",
-              "scope": 716,
+              "scope": 720,
               "stateVariable": true,
               "storageLocation": "default",
               "type": "address",
@@ -510,7 +508,7 @@
                   "stateMutability": "nonpayable",
                   "type": "address"
                 },
-                "id": 686,
+                "id": 690,
                 "name": "ElementaryTypeName",
                 "src": "90:7:2"
               },
@@ -533,17 +531,17 @@
                       "type": "msg",
                       "value": "msg"
                     },
-                    "id": 687,
+                    "id": 691,
                     "name": "Identifier",
                     "src": "113:3:2"
                   }
                 ],
-                "id": 688,
+                "id": 692,
                 "name": "MemberAccess",
                 "src": "113:10:2"
               }
             ],
-            "id": 689,
+            "id": 693,
             "name": "VariableDeclaration",
             "src": "90:33:2"
           },
@@ -553,7 +551,7 @@
               "functionSelector": "445df0ac",
               "mutability": "mutable",
               "name": "last_completed_migration",
-              "scope": 716,
+              "scope": 720,
               "stateVariable": true,
               "storageLocation": "default",
               "type": "uint256",
@@ -565,12 +563,12 @@
                   "name": "uint",
                   "type": "uint256"
                 },
-                "id": 690,
+                "id": 694,
                 "name": "ElementaryTypeName",
                 "src": "127:4:2"
               }
             ],
-            "id": 691,
+            "id": 695,
             "name": "VariableDeclaration",
             "src": "127:36:2"
           },
@@ -588,7 +586,7 @@
                   ]
                 },
                 "children": [],
-                "id": 692,
+                "id": 696,
                 "name": "ParameterList",
                 "src": "187:2:2"
               },
@@ -631,7 +629,7 @@
                               "type": "function (bool,string memory) pure",
                               "value": "require"
                             },
-                            "id": 693,
+                            "id": 697,
                             "name": "Identifier",
                             "src": "196:7:2"
                           },
@@ -668,12 +666,12 @@
                                       "type": "msg",
                                       "value": "msg"
                                     },
-                                    "id": 694,
+                                    "id": 698,
                                     "name": "Identifier",
                                     "src": "211:3:2"
                                   }
                                 ],
-                                "id": 695,
+                                "id": 699,
                                 "name": "MemberAccess",
                                 "src": "211:10:2"
                               },
@@ -682,16 +680,16 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 689,
+                                  "referencedDeclaration": 693,
                                   "type": "address",
                                   "value": "owner"
                                 },
-                                "id": 696,
+                                "id": 700,
                                 "name": "Identifier",
                                 "src": "225:5:2"
                               }
                             ],
-                            "id": 697,
+                            "id": 701,
                             "name": "BinaryOperation",
                             "src": "211:19:2"
                           },
@@ -706,32 +704,32 @@
                               "type": "literal_string \"This function is restricted to the contract's owner\"",
                               "value": "This function is restricted to the contract's owner"
                             },
-                            "id": 698,
+                            "id": 702,
                             "name": "Literal",
                             "src": "238:53:2"
                           }
                         ],
-                        "id": 699,
+                        "id": 703,
                         "name": "FunctionCall",
                         "src": "196:101:2"
                       }
                     ],
-                    "id": 700,
+                    "id": 704,
                     "name": "ExpressionStatement",
                     "src": "196:101:2"
                   },
                   {
-                    "id": 701,
+                    "id": 705,
                     "name": "PlaceholderStatement",
                     "src": "303:1:2"
                   }
                 ],
-                "id": 702,
+                "id": 706,
                 "name": "Block",
                 "src": "190:119:2"
               }
             ],
-            "id": 703,
+            "id": 707,
             "name": "ModifierDefinition",
             "src": "168:141:2"
           },
@@ -742,7 +740,7 @@
               "isConstructor": false,
               "kind": "function",
               "name": "setCompleted",
-              "scope": 716,
+              "scope": 720,
               "stateMutability": "nonpayable",
               "virtual": false,
               "visibility": "public"
@@ -755,7 +753,7 @@
                       "constant": false,
                       "mutability": "mutable",
                       "name": "completed",
-                      "scope": 715,
+                      "scope": 719,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "uint256",
@@ -767,17 +765,17 @@
                           "name": "uint",
                           "type": "uint256"
                         },
-                        "id": 704,
+                        "id": 708,
                         "name": "ElementaryTypeName",
                         "src": "335:4:2"
                       }
                     ],
-                    "id": 705,
+                    "id": 709,
                     "name": "VariableDeclaration",
                     "src": "335:14:2"
                   }
                 ],
-                "id": 706,
+                "id": 710,
                 "name": "ParameterList",
                 "src": "334:16:2"
               },
@@ -788,7 +786,7 @@
                   ]
                 },
                 "children": [],
-                "id": 709,
+                "id": 713,
                 "name": "ParameterList",
                 "src": "369:0:2"
               },
@@ -800,16 +798,16 @@
                       "overloadedDeclarations": [
                         null
                       ],
-                      "referencedDeclaration": 703,
+                      "referencedDeclaration": 707,
                       "type": "modifier ()",
                       "value": "restricted"
                     },
-                    "id": 707,
+                    "id": 711,
                     "name": "Identifier",
                     "src": "358:10:2"
                   }
                 ],
-                "id": 708,
+                "id": 712,
                 "name": "ModifierInvocation",
                 "src": "358:10:2"
               },
@@ -832,11 +830,11 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 691,
+                              "referencedDeclaration": 695,
                               "type": "uint256",
                               "value": "last_completed_migration"
                             },
-                            "id": 710,
+                            "id": 714,
                             "name": "Identifier",
                             "src": "375:24:2"
                           },
@@ -845,41 +843,41 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 705,
+                              "referencedDeclaration": 709,
                               "type": "uint256",
                               "value": "completed"
                             },
-                            "id": 711,
+                            "id": 715,
                             "name": "Identifier",
                             "src": "402:9:2"
                           }
                         ],
-                        "id": 712,
+                        "id": 716,
                         "name": "Assignment",
                         "src": "375:36:2"
                       }
                     ],
-                    "id": 713,
+                    "id": 717,
                     "name": "ExpressionStatement",
                     "src": "375:36:2"
                   }
                 ],
-                "id": 714,
+                "id": 718,
                 "name": "Block",
                 "src": "369:47:2"
               }
             ],
-            "id": 715,
+            "id": 719,
             "name": "FunctionDefinition",
             "src": "313:103:2"
           }
         ],
-        "id": 716,
+        "id": 720,
         "name": "ContractDefinition",
         "src": "66:352:2"
       }
     ],
-    "id": 717,
+    "id": 721,
     "name": "SourceUnit",
     "src": "32:387:2"
   },
@@ -888,6 +886,12 @@
     "version": "0.7.6+commit.7338295f.Emscripten.clang"
   },
   "networks": {
+    "4": {
+      "events": {},
+      "links": {},
+      "address": "0x385f347F8ad26a55ef0E075c76E0330407DD00e9",
+      "transactionHash": "0x3e6cae62b65da89a8bf01029fced561687be53839cae8b5e97ef8b97b01c9c6d"
+    },
     "5777": {
       "events": {},
       "links": {},
@@ -896,8 +900,7 @@
     }
   },
   "schemaVersion": "3.4.3",
-  "updatedAt": "2022-01-22T19:41:10.734Z",
-  "networkType": "ethereum",
+  "updatedAt": "2022-01-26T08:50:46.737Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},
