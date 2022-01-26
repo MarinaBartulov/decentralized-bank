@@ -7,11 +7,12 @@
 ## Technologies
 - EVM, Solidity, Truffle Framework, Ganache, Chai, Mocha
 - React, web3.js
-- Rinkeby Test Network, Geth
+- Rinkeby Test Network, Gethm IPFS
 
 ## How to use it?
 - Create an account on Rinkeby Test Network
 - Install MetaMask wallet in your browser and switch to Rinkeby Test Network
 - Import your account into MetaMask and send test ETH to that account
-- Run frontend app using command: npm start
+- Frontend app is deployed on IPFS and can be accessed using this URL: https://ipfs.io/ipfs/QmfPosbXcVKeXoAjEqfBy9vyM7dfeuNRksLRDcnwUptg8v/
 - Connect MetaMask to the app using imported account
+- If you have IPFS node on your machine you can access it using this URL: http://127.0.0.1:8080/ipfs/QmfPosbXcVKeXoAjEqfBy9vyM7dfeuNRksLRDcnwUptg8v/
