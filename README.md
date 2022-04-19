@@ -13,6 +13,6 @@
 - Create an account on Rinkeby Test Network
 - Install MetaMask wallet in your browser and switch to Rinkeby Test Network
 - Import your account into MetaMask and send test ETH to that account
-- Frontend app is deployed on IPFS and can be accessed using this URL: https://ipfs.io/ipfs/QmfPosbXcVKeXoAjEqfBy9vyM7dfeuNRksLRDcnwUptg8v/
+- Frontend app is deployed on IPFS and can be accessed using this URL: https://ipfs.io/ipfs/QmfPosbXcVKeXoAjEqfBy9vyM7dfeuNRksLRDcnwUptg8v/ <br />(If the website doesn't load on the first attempt, try refreshing a couple of times)
 - Connect MetaMask to the app using imported account
-- If you have IPFS node on your machine you can access it using this URL: http://127.0.0.1:8080/ipfs/QmfPosbXcVKeXoAjEqfBy9vyM7dfeuNRksLRDcnwUptg8v/
+
