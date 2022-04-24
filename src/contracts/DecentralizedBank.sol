@@ -2,9 +2,11 @@
 pragma solidity ^0.8.13;
 
 import "./DBToken.sol";
+import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 
 contract DecentralizedBank {
     DBToken private dbToken;
+    AggregatorV3Interface internal priceFeed;
 
     mapping(address => uint256) public etherBalanceOf;
     mapping(address => uint256) public depositStart;
@@ -39,6 +41,9 @@ contract DecentralizedBank {
     // argument: deployed token contract
     constructor(DBToken _dbToken) {
         dbToken = _dbToken;
+        priceFeed = AggregatorV3Interface(
+            0x8A753747A1Fa494EC906cE90E9f37563A8AF630e
+        );
     }
 
     /**
@@ -143,5 +148,10 @@ contract DecentralizedBank {
         isBorrowed[msg.sender] = false;
 
         emit PayOff(msg.sender, fee, block.timestamp);
+    }
+
+    function getLatestPrice() public view returns (int256) {
+        (, int256 price, , , ) = priceFeed.latestRoundData();
+        return price;
     }
 }

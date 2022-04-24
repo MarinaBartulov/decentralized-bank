@@ -24,6 +24,7 @@ function Home(props) {
 
   const [key, setKey] = useState("deposit");
   const [toastMsg, setToastMsg] = useState("");
+  const [usdValue, setUsdValue] = useState(0);
 
   useEffect(() => {
     if (
@@ -235,6 +236,11 @@ function Home(props) {
     }
   };
 
+  const updateUSDValue = async (ethValue) => {
+    const price = await decentralizedBank.methods.getLatestPrice().call();
+    setUsdValue(Math.round((price / 100000000) * ethValue * 100) / 100);
+  };
+
   return (
     <div>
       <div className="div-tabs">
@@ -266,9 +272,13 @@ function Home(props) {
                     required
                     min="0.01"
                     value={depositAmount}
-                    onChange={(event) => setDepositAmount(event.target.value)}
+                    onChange={(event) => {
+                      setDepositAmount(event.target.value);
+                      updateUSDValue(event.target.value);
+                    }}
                   />
                 </div>
+                {depositAmount != "" && <p>ETH value = {usdValue} USD</p>}
                 <button
                   type="submit"
                   className="btn btn-primary mt-2 mb-2 tab-btn"
