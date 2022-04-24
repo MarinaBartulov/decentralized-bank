@@ -1,8 +1,8 @@
 # Decentralized Bank
 - Decentralized Bank Token (DBT) follows ERC20 token standard.
 - Smart contracts are deployed on Rinkeby Test Network.
-- Decentralized Bank Token smart contract address: 0xd6E1Be26Ba9867a502941E87eF7ab86AACcD0D9c [EtherScan](https://rinkeby.etherscan.io/token/0xd6E1Be26Ba9867a502941E87eF7ab86AACcD0D9c) 
-- Decentralized Bank smart contract address: 0x6DE0497aB051BbC99D9900dDF79A248ac4E0080a [EtherScan](https://rinkeby.etherscan.io/address/0x6DE0497aB051BbC99D9900dDF79A248ac4E0080a)
+- Decentralized Bank Token smart contract address: 0xD96ee7E13BBA7B405BeB4b03fC94b9F83D2C7d77 [EtherScan](https://rinkeby.etherscan.io/address/0xD96ee7E13BBA7B405BeB4b03fC94b9F83D2C7d77) 
+- Decentralized Bank smart contract address: 0xA444254dE052637C50eaFeD13D366711b51e9f54 [EtherScan](https://rinkeby.etherscan.io/address/0xA444254dE052637C50eaFeD13D366711b51e9f54)
 
 ## Technologies
 - EVM, Solidity, Truffle Framework, Ganache, Chai, Mocha
