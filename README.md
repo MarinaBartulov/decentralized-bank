@@ -10,9 +10,8 @@
 - Rinkeby Test Network, Geth, IPFS
 
 ## How to use it?
-- Create an account on Rinkeby Test Network
 - Install MetaMask wallet in your browser and switch to Rinkeby Test Network
-- Import your account into MetaMask and send test ETH to that account
+- Send Rinkeby test ETH to your account. Faucet for getting test ETH: https://faucets.chain.link/rinkeby
 - Frontend app is deployed on IPFS and can be accessed using this URL: https://ipfs.io/ipfs/QmfPosbXcVKeXoAjEqfBy9vyM7dfeuNRksLRDcnwUptg8v/ <br />(If the website doesn't load on the first attempt, try refreshing a couple of times)
-- Connect MetaMask to the app using imported account
+- Connect MetaMask to the app using your account
 
